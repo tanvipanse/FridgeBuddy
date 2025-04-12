@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from google import genai
 from pydantic import BaseModel
 from config import Config
 from database import recipes_collection
 
 app = Flask(__name__)
+CORS(app)
 
 class Recipe(BaseModel):
     recipe_name: str
@@ -39,7 +41,16 @@ def generate_recipes():
     print(response.text)
 
     recipes: list[Recipe] = response.parsed
+    inserted_ids = []
     for recipe in recipes:
-        recipes_collection.insert_one(recipe.dict()) #adds each recipe as a dictionary to the mongodb recipes collection -- each recipe is a document in mongo
+        result = recipes_collection.insert_one(recipe.dict()) #adds each recipe as a dictionary to the mongodb recipes collection -- each recipe is a document in mongo
+        inserted_ids.append(str(result.inserted_id)) #adds the recipe IDs to the inserted ids array so they can be accessed later
 
-    return jsonify([recipe.dict() for recipe in recipes]) #returns the recipes as json so that they can be accessed by the frontend
+    return jsonify({"ids" : inserted_ids}) #returns the recipe IDS as json so that they can be accessed by the frontend
+
+
+# @app.route("/get-recipes")
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)

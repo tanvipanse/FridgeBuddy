@@ -2,6 +2,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Icon, IconProps} from '@/components/Icon';
 import {ButtonLink, ButtonLinkProps} from '@/components/ButtonLink';
+import {useRouter} from 'next/navigation';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from '@mui/material';
 
@@ -13,6 +14,8 @@ export default function Form() {
     // const [isClicked, setIsClicked] = useState(false);
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
     const [dishLabel, setDishLabel] = useState("Entrée");
+
+    const router = useRouter();
 
     function submit(event) {
         event.preventDefault();
@@ -47,11 +50,35 @@ export default function Form() {
             setBasket(prev => prev.filter(icon => icon.name !== clickedIcon.name));
             setIcons(prev => [...prev, clickedIcon]);
         }
-        
+        //performs on click of an icon 
     };
 
     const handleDishLabel = () => {
         dishLabel === "Entrée"? setDishLabel("Side"): setDishLabel("Entrée");
+    };
+
+    const handleHeadToRecipes = async () => {
+        const ingredients = basket.map((ingredient) => ingredient.name);
+        try {
+            const response = await fetch('http://127.0.0.1:5000/your-fridge', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                }, 
+                body: JSON.stringify({ ingredients }),
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error, status: ${response.status}`);
+            }
+            const data = await response.json();
+            const ids = data.ids;
+            if (ids.length > 0) {
+                const idParam = ids.join(','); // or just take the first one
+                router.push(`/Kitchen?ids=${idParam}`);
+              }
+        } catch (error) {
+            console.error('Error sending ingredients', error);
+        }
     };
 
     return (
@@ -88,7 +115,7 @@ export default function Form() {
             </div>
 
             <FormControlLabel control={<Switch/>} label={dishLabel} onChange={handleDishLabel}/>
-            <ButtonLink href="/Kitchen">Head to recipes! 👩‍🍳</ButtonLink>
+            <button onClick={handleHeadToRecipes}>Head to recipes! 👩‍🍳</button>
   
         </div>
         
