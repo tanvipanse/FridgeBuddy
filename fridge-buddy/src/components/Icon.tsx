@@ -4,11 +4,13 @@ import {Tooltip} from 'react-tooltip';
 
 
 export type IconProps = {
-    category:string,
-    name:string,
+    category:string;
+    name:string;
+    isClicked:boolean;
+    onClick: (icon:{category: string; name: string; isClicked: boolean}) => void;
 }
 
-export function Icon({category, name}:IconProps) {
+export function Icon({category, name, onClick, isClicked}:IconProps) {
     const [onHover, setHover] = useState(false);
     const setImage = () => {
         let emoji = "👾";
@@ -34,8 +36,14 @@ export function Icon({category, name}:IconProps) {
         }
         return emoji;
     }
+    const handleClick = () => {
+        isClicked?isClicked=false:isClicked=true;
+        const icon = {category, name, isClicked};
+        onClick(icon);
+        
+    }
     return (
-        <div>
+        <div onClick={handleClick}>
             <a 
                 data-tooltip-id="name-hover" 
                 data-tooltip-content={name} 
