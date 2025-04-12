@@ -59,6 +59,7 @@ export default function Form() {
 
     const handleHeadToRecipes = async () => {
         const ingredients = basket.map((ingredient) => ingredient.name);
+        console.log(ingredients); // DEBUG
         try {
             const response = await fetch('http://127.0.0.1:5000/your-fridge', {
                 method: 'POST',

@@ -26,7 +26,8 @@ def generate_recipes():
 
     prompt = f"""I have {ingredients_str} in my fridge. 
             Give me 3 recipes that i can make using ideally only these ingredients. 
-            You are not required to utilize every single ingredient.
+            You are not required to utilize every single ingredient. Please do not 
+            give me repeated recipes. 
             """
 
     response = client.models.generate_content(
