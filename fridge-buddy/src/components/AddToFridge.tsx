@@ -2,19 +2,25 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Icon, IconProps} from '@/components/Icon';
 import {ButtonLink, ButtonLinkProps} from '@/components/ButtonLink';
+import Switch from '@mui/material/Switch';
+import { FormControlLabel } from '@mui/material';
 
 export default function Form() {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [name, setName] = useState("");
     const[icons, setIcons] = useState<IconProps[]>([]);
     const[basket, setBasket] = useState<IconProps[]>([]);
-    // const addFridgeContainer = document.getElementById('add-fridge-container');
+    // const [isClicked, setIsClicked] = useState(false);
+    const [activeIcon, setActiveIcon] = useState<string | null>(null);
+    const [dishLabel, setDishLabel] = useState("Entrée");
 
     function submit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const query = formData.get("query");
-        setIcons((prevIcons) => [...prevIcons, {category:selectedCategory,name:name}]);
+        setIcons((prevIcons) => [
+            ...prevIcons, 
+            {category:selectedCategory,name:name,onClick:handleBasket}]);
         //create new icon data
         //add to icons state -> array of icons data
         
@@ -29,28 +35,30 @@ export default function Form() {
         setName(event.target.value);
     }
 
-    const handleBasket = (icon: {category:string;name:string;isClicked:boolean}) => {
-        console.log(icon.isClicked);
-        if(icon.isClicked){
-           //remove corresponding icon from icons
-           setIcons(prevIcons => prevIcons.filter(clickedIcon => clickedIcon.name !== icon.name));
-           //add corresponding icon to basket 
-           setBasket(prevBasket => [...prevBasket, {category:icon.category,name:icon.name}])
+    const handleBasket = (clickedIcon: {category:string;name:string;}) => {
+        //determines whether this icon is in fridge or basket
+        const inFridge = icons.find(icon => icon.name === clickedIcon.name);
+        const inBasket = basket.find(icon => icon.name === clickedIcon.name);
+
+        if(inFridge){
+            setIcons(prev => prev.filter(icon => icon.name !== clickedIcon.name));
+            setBasket(prev => [...prev, clickedIcon]);
+        } else if(inBasket){
+            setBasket(prev => prev.filter(icon => icon.name !== clickedIcon.name));
+            setIcons(prev => [...prev, clickedIcon]);
         }
-        else if(!icon.isClicked){
-            setIcons((prevIcons) => [...prevIcons, {category: icon.category,name:icon.name}]);
-            setBasket(prevBasket => prevBasket.filter(clickedIcon => clickedIcon.name !== icon.name));
-        }
-        //performs on click of an icon
         
-        
-    }
+    };
+
+    const handleDishLabel = () => {
+        dishLabel === "Entrée"? setDishLabel("Side"): setDishLabel("Entrée");
+    };
 
     return (
         <div>
             <div>
                 {icons.map((icon,index) => (
-                    <Icon  key={index} name={icon.name} category={icon.category} onClick={handleBasket} isClicked={icon.isClicked}/>
+                    <Icon  key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
                 ))}
             </div>
             <form onSubmit={submit}>
@@ -75,13 +83,13 @@ export default function Form() {
             </form>
             <div>
                 {basket.map((icon,index) => (
-                    <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket} isClicked={icon.isClicked}/>
+                    <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
                 ))}
             </div>
 
+            <FormControlLabel control={<Switch/>} label={dishLabel} onChange={handleDishLabel}/>
             <ButtonLink href="/Kitchen">Head to recipes! 👩‍🍳</ButtonLink>
-            
-            
+  
         </div>
         
     );

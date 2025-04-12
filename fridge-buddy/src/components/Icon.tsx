@@ -6,12 +6,10 @@ import {Tooltip} from 'react-tooltip';
 export type IconProps = {
     category:string;
     name:string;
-    isClicked:boolean;
-    onClick: (icon:{category: string; name: string; isClicked: boolean}) => void;
+    onClick: (icon:{category: string; name: string;}) => void;
 }
 
-export function Icon({category, name, onClick, isClicked}:IconProps) {
-    const [onHover, setHover] = useState(false);
+export function Icon({category, name, onClick}:IconProps) {
     const setImage = () => {
         let emoji = "👾";
         switch(category) {
@@ -37,8 +35,7 @@ export function Icon({category, name, onClick, isClicked}:IconProps) {
         return emoji;
     }
     const handleClick = () => {
-        isClicked?isClicked=false:isClicked=true;
-        const icon = {category, name, isClicked};
+        const icon = {category, name};
         onClick(icon);
         
     }
