@@ -8,8 +8,6 @@ export default function Home() {
   return (
     <div>
       <h1>Your Fridge</h1>
-      <Icon category="vegetable" name="kale"/>
-      <Icon category="protein" name="pork belly"/>
       <Form />
     </div>
   )
