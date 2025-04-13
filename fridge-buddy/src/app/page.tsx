@@ -30,14 +30,6 @@ export default function Home() {
         <StyledDiv>
             <Form />
         </StyledDiv>
-
-        <StyledDiv>
-        <Image
-        src={fridge}
-        alt="Fridge icon"
-        width={625}
-        />
-        </StyledDiv>
       </FlexRowDiv>
      
     </>  

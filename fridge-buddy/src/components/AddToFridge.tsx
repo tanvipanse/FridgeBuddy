@@ -6,6 +6,8 @@ import {useRouter} from 'next/navigation';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from '@mui/material';
 import styled from 'styled-components';
+import fridge from '@/assets/fridge.png';
+import Image from 'next/image';
 
 const Button = styled.button`
     padding: 1rem 1.5rem;
@@ -106,38 +108,48 @@ export default function Form() {
     };
 
     return (
-        <div>
+        <div style={{display: 'flex'}}>
             <div>
-                {icons.map((icon,index) => (
-                    <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
-                ))}
-            </div>
-            <form onSubmit={submit}>
-                <label style={{fontSize: "2rem"}}>
-                    Food Category: <br/>
-                    <Select value={selectedCategory} onChange={storeCategory}>
-                        <option value="default">Select 🙋‍♀️</option>
-                        <option value="dairy">Dairy</option>
-                        <option value="protein">Protein</option>
-                        <option value="fruit">Fruit</option>
-                        <option value="vegetable">Vegetable</option>
-                        <option value="sauce">Sauce</option>
-                        <option value="grain">Grain</option>
-                        <option value="misc">Misc.</option>
-                    </Select>
-                </label>
-                <Input type="text" name="query" value={name} onChange={storeName}/>
-                <Button type="submit">Add to cart 🛒</Button>
-                <br/> <br/>
+                <form onSubmit={submit}>
+                    <label style={{fontSize: "2rem"}}>
+                        Food Category: <br/>
+                        <Select value={selectedCategory} onChange={storeCategory}>
+                            <option value="default">Select 🙋‍♀️</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="protein">Protein</option>
+                            <option value="fruit">Fruit</option>
+                            <option value="vegetable">Vegetable</option>
+                            <option value="sauce">Sauce</option>
+                            <option value="grain">Grain</option>
+                            <option value="misc">Misc.</option>
+                        </Select>
+                    </label>
+                    <Input type="text" name="query" value={name} onChange={storeName}/>
+                    <Button type="submit">Add to cart 🛒</Button>
+                    <br/> <br/>
+                    <div>
+                        {basket.map((icon,index) => (
+                        <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
+                        ))}
+                    </div>
 
-                
-            </form>
-            <div>
-                {basket.map((icon,index) => (
-                    <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
-                ))}
+                    
+                </form>
+                <Button onClick={handleHeadToRecipes}>Head to recipes! 👩‍🍳</Button>
             </div>
-            <Button onClick={handleHeadToRecipes}>Head to recipes! 👩‍🍳</Button>
+            <div style={{position:'relative', width: '625px', height: '715px'}}>
+                <Image
+                src={fridge}
+                alt="Fridge icon"
+                fill
+                style={{objectFit: "cover"}}
+                />
+                <div style={{position: 'absolute',width:'57%',height:'70%', top: '12%', left: '4%'}}>
+                    {icons.map((icon,index) => (
+                        <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
+                    ))}
+                </div>
+            </div>      
         </div>
         
     );

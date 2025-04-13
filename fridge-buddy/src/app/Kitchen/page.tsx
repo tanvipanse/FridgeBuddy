@@ -46,7 +46,7 @@ export default function Kitchen() {
   return (
     <div>
       <h1 style={{margin:"35px"}}>Recipes 🍴</h1>
-      <Carousel responsive={responsive} infinite autoPlay autoPlaySpeed={2000}>
+      <Carousel responsive={responsive} infinite>
         {recipes.map((card, key) => (
           <div 
             key={key}
