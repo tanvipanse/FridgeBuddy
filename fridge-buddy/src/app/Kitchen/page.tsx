@@ -29,5 +29,3 @@ export default function Kitchen() {
     </div>
   );
 }
-
-// FIX THIS !!!
