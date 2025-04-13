@@ -1,10 +1,23 @@
 'use client';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useMemo, useEffect, useState } from 'react';
 import { RecipeCard, RecipeCardProps } from './RecipeCard';
 import Carousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
 import styled from 'styled-components';
+import Link from 'next/link';
+
+export function BackButton() {
+  const router = useRouter();
+
+  const handleBack = () => {
+    router.back();
+  }
+
+  return (
+    <button style={{margin: "auto", marginTop: '50px', display:'block', borderRadius: "20px", padding: "0.9rem 1.5rem", fontSize: "1rem", backgroundColor:"#99D8D3", borderWidth:"0px", fontWeight:"bold"}} onClick={handleBack}>Back to the Fridge</button>
+  )
+}
 
 export default function Kitchen() {
   const searchParams = useSearchParams();
@@ -45,7 +58,7 @@ export default function Kitchen() {
 
   return (
     <div>
-      <h1 style={{margin:"35px"}}>Recipes 🍴</h1>
+      <h1 style={{margin:"35px", backgroundColor:'#CACC90', padding:'20px', borderRadius: '40px', width: '180px'}}>Recipes 🍴</h1>
       <Carousel responsive={responsive} infinite>
         {recipes.map((card, key) => (
           <div 
@@ -62,6 +75,9 @@ export default function Kitchen() {
           </div>
         ))}
       </Carousel>
+      <BackButton />
+      {/* <button onClick={() => router.back()}>Back to the Fridge</button> */}
+      {/* <Link href="../page.tsx"><button style={{marginTop: '80px', display:'block', margin:'auto'}}>To the Fridge</button></Link> */}
     </div> 
   );
 }

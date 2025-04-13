@@ -3,8 +3,7 @@ import {Icon} from "@/components/Icon";
 import Form from "@/components/AddToFridge"
 import 'react-tooltip/dist/react-tooltip.css';
 import styled from 'styled-components';
-import fridge from '@/assets/fridge.png';
-import Image from 'next/image';
+
 
 
 const StyledDiv = styled.div`
