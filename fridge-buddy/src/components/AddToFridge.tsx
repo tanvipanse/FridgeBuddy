@@ -5,6 +5,8 @@ import {ButtonLink, ButtonLinkProps} from '@/components/ButtonLink';
 import {useRouter} from 'next/navigation';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from '@mui/material';
+import fridge from '@/assets/fridge.png';
+import Image from 'next/image';
 
 export default function Form() {
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -117,7 +119,11 @@ export default function Form() {
 
             <FormControlLabel control={<Switch/>} label={dishLabel} onChange={handleDishLabel}/>
             <button onClick={handleHeadToRecipes}>Head to recipes! 👩‍🍳</button>
-  
+            <Image
+                src={fridge}
+                alt="Fridge icon"
+                width = {300}
+            />
         </div>
         
     );
