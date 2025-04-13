@@ -7,10 +7,13 @@ from database import recipes_collection
 from bson import ObjectId
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {
-    "origins" : ["http://localhost:3000", "http://localhost:5000", "http://127.0.0.1:5000"],
-    "methods": ["GET", "POST"]
-}})
+CORS(app, supports_credentials=True, origins="*")
+
+
+#resources={r"/*": {
+#     "origins" : ["http://localhost:3000", "http://localhost:5000", "http://127.0.0.1:5000", "http://127.0.0.1:5000/your-fridge"],
+#     "methods": ["GET", "POST"]
+# }}
 
 
 class Recipe(BaseModel):
