@@ -5,8 +5,34 @@ import {ButtonLink, ButtonLinkProps} from '@/components/ButtonLink';
 import {useRouter} from 'next/navigation';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from '@mui/material';
-import fridge from '@/assets/fridge.png';
-import Image from 'next/image';
+import styled from 'styled-components';
+
+const Button = styled.button`
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    border-style: solid;
+    border-width: 0.2rem;
+    border-color: #0e273c;
+`
+
+const Input = styled.input`
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    border-style: solid;
+    border-width: 0.2rem;
+    border-color: #0e273c;
+`
+const Select = styled.select`
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    border-style: solid;
+    border-width: 0.2rem;
+    border-color: #0e273c;
+`
+
 
 export default function Form() {
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -15,7 +41,6 @@ export default function Form() {
     const[basket, setBasket] = useState<IconProps[]>([]);
     // const [isClicked, setIsClicked] = useState(false);
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
-    const [dishLabel, setDishLabel] = useState("Entrée");
 
     const router = useRouter();
 
@@ -55,13 +80,9 @@ export default function Form() {
         //performs on click of an icon 
     };
 
-    const handleDishLabel = () => {
-        dishLabel === "Entrée"? setDishLabel("Side"): setDishLabel("Entrée");
-    };
-
     const handleHeadToRecipes = async () => {
         const ingredients = basket.map((ingredient) => ingredient.name);
-        console.log(ingredients); // DEBUG
+        // console.log(ingredients); // DEBUG
         try {
             const response = await fetch('http://127.0.0.1:5000/your-fridge', {
                 method: 'POST',
@@ -88,13 +109,13 @@ export default function Form() {
         <div>
             <div>
                 {icons.map((icon,index) => (
-                    <Icon  key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
+                    <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
                 ))}
             </div>
             <form onSubmit={submit}>
-                <label >
+                <label style={{fontSize: "2rem"}}>
                     Food Category: <br/>
-                    <select value={selectedCategory} onChange={storeCategory}>
+                    <Select value={selectedCategory} onChange={storeCategory}>
                         <option value="default">Select 🙋‍♀️</option>
                         <option value="dairy">Dairy</option>
                         <option value="protein">Protein</option>
@@ -103,10 +124,10 @@ export default function Form() {
                         <option value="sauce">Sauce</option>
                         <option value="grain">Grain</option>
                         <option value="misc">Misc.</option>
-                    </select>
+                    </Select>
                 </label>
-                <input type="text" name="query" value={name} onChange={storeName}/>
-                <button type="submit">Add to cart 🛒</button>
+                <Input type="text" name="query" value={name} onChange={storeName}/>
+                <Button type="submit">Add to cart 🛒</Button>
                 <br/> <br/>
 
                 
@@ -116,14 +137,7 @@ export default function Form() {
                     <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
                 ))}
             </div>
-
-            <FormControlLabel control={<Switch/>} label={dishLabel} onChange={handleDishLabel}/>
-            <button onClick={handleHeadToRecipes}>Head to recipes! 👩‍🍳</button>
-            <Image
-                src={fridge}
-                alt="Fridge icon"
-                width = {300}
-            />
+            <Button onClick={handleHeadToRecipes}>Head to recipes! 👩‍🍳</Button>
         </div>
         
     );

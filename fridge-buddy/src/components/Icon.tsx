@@ -1,6 +1,17 @@
 'use client'
 import React, {useState} from 'react';
 import {Tooltip} from 'react-tooltip';
+import Image from 'next/image';
+
+// IMPORT IMAGES STATICALLY 
+import dairy from "../assets/dairy.png";
+import protein from "../assets/protein.png";
+import fruit from "../assets/fruit.png";
+import vegetable from "../assets/vegetable.png";
+import sauce from "../assets/sauce.png";
+import grain from "../assets/grain.png";
+import misc from "../assets/misc.png";
+
 
 
 export type IconProps = {
@@ -11,28 +22,21 @@ export type IconProps = {
 
 export function Icon({category, name, onClick}:IconProps) {
     const setImage = () => {
-        let emoji = "👾";
         switch(category) {
             case "dairy":
-                emoji = "🧀";
-                break;
+                return dairy;
             case "protein":
-                emoji = "🥩";
-                break;
+                return protein;
             case "fruit":
-                emoji = "🍎";
-                break;
+                return fruit;
             case "vegetable":
-                emoji = "🥦";
-                break;
+                return vegetable;
             case "sauce":
-                emoji = "🥫";
-                break;
+                return sauce;
             case "grain":
-                emoji = "🌾";
-                break;
+                return grain;
+            default: return misc;
         }
-        return emoji;
     }
     const handleClick = () => {
         const icon = {category, name};
@@ -40,13 +44,18 @@ export function Icon({category, name, onClick}:IconProps) {
         
     }
     return (
-        <div onClick={handleClick}>
-            <a 
-                data-tooltip-id="name-hover" 
-                data-tooltip-content={name} 
+        <div onClick={handleClick} style={{ cursor: 'pointer', display: 'inline-block', position: 'relative'}}>
+            <span
+            data-tooltip-id="name-hover"
+            data-tooltip-content={name}
+            style={{ display: 'inline-block' }}
             >
-                {setImage()}
-            </a>
+            <Image
+                src={setImage()}
+                alt="icon"
+                width={100}
+            />
+            </span>
             <Tooltip id="name-hover"/>
         </div>
     );

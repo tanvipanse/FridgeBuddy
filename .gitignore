@@ -1,0 +1,64 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# === DEPENDENCIES ===
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# === MONOREPO-SPECIFIC ===
+fridge-buddy/node_modules/
+fridge-buddy/.next/
+fridge-buddy/out/
+fridge-buddy/.turbo/
+fridge-buddy/.env
+fridge-buddy/env.local
+
+flask-backend/__pycache__/
+flask-backend/.venv/
+flask-backend/venv/
+flask-backend/*.pyc
+flask-backend/.env
+
+# === TESTING ===
+/coverage
+.cache/
+*.sqlite3
+
+# === BUILD OUTPUT ===
+/build
+/dist
+
+# === NEXT.JS ===
+.next/
+out/
+.vercel/
+
+# === ENV FILES ===
+.env
+.env.*
+**/.env
+
+# === TYPESCRIPT ===
+*.tsbuildinfo
+next-env.d.ts
+
+# === MISC ===
+.DS_Store
+*.pem
+*.log
+
+# === DEBUG LOGS ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# === IDEs / EDITORS ===
+.vscode/
+.idea/
+*.code-workspace

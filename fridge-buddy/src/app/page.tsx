@@ -3,17 +3,43 @@ import {Icon} from "@/components/Icon";
 import Form from "@/components/AddToFridge"
 import 'react-tooltip/dist/react-tooltip.css';
 import styled from 'styled-components';
+import fridge from '@/assets/fridge.png';
+import Image from 'next/image';
 
 
+const StyledDiv = styled.div`
+  display: flex;
+`
+const FlexRowDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: 5rem;
+  margin-right: 5rem;
+`
 
 
 export default function Home() {
+
+
   return (
-      <div>
-        <h1>Your Fridge</h1>
-        <Form />
-      </div>
+    <>
+      <h1 style={{textAlign: "center", fontSize:"4rem", margin:"2rem"}}>Fill your fridge!</h1>
+      <FlexRowDiv>
+        <StyledDiv>
+            <Form />
+        </StyledDiv>
+
+        <StyledDiv>
+        <Image
+        src={fridge}
+        alt="Fridge icon"
+        width={625}
+        />
+        </StyledDiv>
+      </FlexRowDiv>
+     
+    </>  
   )
 }
-
-

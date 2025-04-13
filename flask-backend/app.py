@@ -44,7 +44,7 @@ def generate_recipes():
         },
     )
 
-    print(response.text)
+    # print(response.text)
 
     recipes: list[Recipe] = response.parsed
     inserted_ids = []
