@@ -41,6 +41,7 @@ export default function Form() {
     const [name, setName] = useState("");
     const[icons, setIcons] = useState<IconProps[]>([]);
     const[basket, setBasket] = useState<IconProps[]>([]);
+    // const [inputValue, setInputValue] = useState('');
     // const [isClicked, setIsClicked] = useState(false);
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
 
@@ -55,6 +56,7 @@ export default function Form() {
             {category:selectedCategory,name:name,onClick:handleBasket}]);
         //create new icon data
         //add to icons state -> array of icons data
+        setName(""); // clear input after form submission
         
     }
 
