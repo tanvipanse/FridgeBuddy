@@ -4,9 +4,14 @@ from google import genai
 from pydantic import BaseModel
 from config import Config
 from database import recipes_collection
+from bson import ObjectId
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {
+    "origins" : ["http://localhost:3000", "http://localhost:5000", "http://127.0.0.1:5000"],
+    "methods": ["GET", "POST"]
+}})
+
 
 class Recipe(BaseModel):
     recipe_name: str
@@ -50,7 +55,18 @@ def generate_recipes():
     return jsonify({"ids" : inserted_ids}) #returns the recipe IDS as json so that they can be accessed by the frontend
 
 
-# @app.route("/get-recipes")
+@app.route("/get-recipes", methods=["GET"])
+def get_recipes():
+    ids = request.args.get('ids', "").split(",")
+    object_ids = [ObjectId(id.strip()) for id in ids if id.strip()]
+
+    recipes = list(recipes_collection.find({"_id": {"$in": object_ids}})) #mongodb query - find all docs where _id field is in list object_ids
+
+    for recipe in recipes: 
+        recipe["_id"] = str(recipe["_id"])
+
+    return jsonify(recipes)
+
 
 
 if __name__ == "__main__":
