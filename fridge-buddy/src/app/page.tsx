@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 style={{textAlign: "center", fontSize:"4rem", margin:"2rem"}}>Fill your fridge!</h1>
+      <h1 style={{margin:"35px", backgroundColor:'#CACC90', padding:'20px', borderRadius: '40px', width: '270px'}}>FridgeBuddy 🧊</h1>
       <FlexRowDiv>
         <StyledDiv>
             <Form />

@@ -68,7 +68,7 @@ export function Icon({category, name, onClick, onRemove}:IconProps) {
             <Image
                 src={setImage()}
                 alt="icon"
-                width={100}
+                width={80}
             />
             </span>
             {isHovered && (

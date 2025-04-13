@@ -24,7 +24,7 @@ export function RecipeCard({concept, recipeName, ingredients, instructions}:Reci
                 <p> "{concept}"</p>
             </div>
             
-            <div style={{display:'flex', marginTop: '120px', padding: "0.5rem"}}>
+            <div style={{display:'flex', marginTop: '150px', padding: "0.5rem"}}>
                 <ul><strong>Ingredients:</strong>
                     {ingredients.map((ingredient, key) => (
                         <li key={key}>{ingredient}</li>

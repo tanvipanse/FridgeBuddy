@@ -13,26 +13,24 @@ const Button = styled.button`
     padding: 1rem 1.5rem;
     border-radius: 1rem;
     font-size: 1.5rem;
-    border-style: solid;
-    border-width: 0.2rem;
-    border-color: #0e273c;
+    border:none;
+    background-color: #CACC90;
+    align-self: center;
 `
 
 const Input = styled.input`
     padding: 1rem 1.5rem;
     border-radius: 1rem;
     font-size: 1.5rem;
-    border-style: solid;
-    border-width: 0.2rem;
-    border-color: #0e273c;
+    border:3px solid #0B5563;
 `
 const Select = styled.select`
     padding: 1rem 1.5rem;
     border-radius: 1rem;
     font-size: 1.5rem;
-    border-style: solid;
-    border-width: 0.2rem;
-    border-color: #0e273c;
+    border:none;
+    background-color:#99D8D3;
+    margin-right: 60px;
 `
 
 
@@ -113,24 +111,28 @@ export default function Form() {
       };
 
     return (
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', gap: '100px'}}>
             <div style={{flex: 1}}>
                 <form onSubmit={submit}>
-                    <label style={{fontSize: "2rem"}}>
-                        Food Category: <br/>
-                        <Select value={selectedCategory} onChange={storeCategory}>
-                            <option value="default">Select 🙋‍♀️</option>
-                            <option value="dairy">Dairy</option>
-                            <option value="protein">Protein</option>
-                            <option value="fruit">Fruit</option>
-                            <option value="vegetable">Vegetable</option>
-                            <option value="sauce">Sauce</option>
-                            <option value="grain">Grain</option>
-                            <option value="misc">Misc.</option>
-                        </Select>
-                    </label>
-                    <Input type="text" name="query" value={name} onChange={storeName}/>
-                    <Button type="submit">Add to cart 🛒</Button>
+                    <div style={{backgroundColor: 'white', padding:'10px', borderRadius: '10px', width: '600px', position:'relative', alignItems: 'center', paddingTop: '100px', margin:'auto', display: 'block'}}>
+                        <label>
+                            
+                            <span style={{position:'absolute', textAlign: "center", width: '100%', backgroundColor: '#0B5563', top: '0', left:'0', borderTopLeftRadius:'10px', borderTopRightRadius:'10px', color: 'white'}}><h1>Fill your fridge:</h1></span><br/>
+                            <Select value={selectedCategory} onChange={storeCategory}>
+                                <option value="default">Select 🙋‍♀️</option>
+                                <option value="dairy">Dairy</option>
+                                <option value="protein">Protein</option>
+                                <option value="fruit">Fruit</option>
+                                <option value="vegetable">Vegetable</option>
+                                <option value="sauce">Sauce</option>
+                                <option value="grain">Grain</option>
+                                <option value="misc">Misc.</option>
+                            </Select>
+                        </label>
+                        <Input type="text" name="query" value={name} onChange={storeName}/>
+                        <Button type="submit">Add to cart 🛒</Button>        
+                    </div>
+                    
                     <br/> <br/>
                     <div style={{flexWrap: "wrap", width: "25rem"}}>
                         {basket.map((icon,index) => (
@@ -142,7 +144,7 @@ export default function Form() {
                 </form>
                 <Button onClick={handleHeadToRecipes}>Head to recipes! 👩‍🍳</Button>
             </div>
-            <div style={{position:'relative', width: '625px', height: '715px'}}>
+            <div style={{position:'relative', width: '500px', height: '600px'}}>
                 <Image
                 src={fridge}
                 alt="Fridge icon"
