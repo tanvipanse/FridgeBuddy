@@ -41,7 +41,6 @@ export default function Form() {
     const [name, setName] = useState("");
     const[icons, setIcons] = useState<IconProps[]>([]);
     const[basket, setBasket] = useState<IconProps[]>([]);
-    // const [inputValue, setInputValue] = useState('');
     // const [isClicked, setIsClicked] = useState(false);
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
 
@@ -109,9 +108,13 @@ export default function Form() {
         }
     };
 
+    const handleRemoveIcon = (nameToRemove: string) => {
+        setIcons(prev => prev.filter(icon => icon.name !== nameToRemove));
+      };
+
     return (
         <div style={{display: 'flex'}}>
-            <div>
+            <div style={{flex: 1}}>
                 <form onSubmit={submit}>
                     <label style={{fontSize: "2rem"}}>
                         Food Category: <br/>
@@ -129,9 +132,9 @@ export default function Form() {
                     <Input type="text" name="query" value={name} onChange={storeName}/>
                     <Button type="submit">Add to cart 🛒</Button>
                     <br/> <br/>
-                    <div>
+                    <div style={{flexWrap: "wrap", width: "25rem"}}>
                         {basket.map((icon,index) => (
-                        <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
+                            <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}onRemove={handleRemoveIcon}/>
                         ))}
                     </div>
 
@@ -148,7 +151,7 @@ export default function Form() {
                 />
                 <div style={{position: 'absolute',width:'57%',height:'70%', top: '12%', left: '4%'}}>
                     {icons.map((icon,index) => (
-                        <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket}/>
+                        <Icon key={index} name={icon.name} category={icon.category} onClick={handleBasket} onRemove={handleRemoveIcon}/>
                     ))}
                 </div>
             </div>      
